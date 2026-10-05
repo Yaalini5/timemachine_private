@@ -34,6 +34,19 @@ TimeMachine_Project/
 5. Open `gold_qa.jsonl` (or `gold_qa_dev.jsonl`) to see how questions map to expected answers
    and governing clauses.
 
+## Running it (M2 baseline)
+
+```bash
+make install
+cp .env.example .env      # add GEMINI_API_KEY (free key: https://aistudio.google.com/apikey)
+make eval                 # dev split; Gemini if key set, else offline backend
+make test
+```
+
+Code lives in `timemachine/` (`ingest` → `index` (BM25 + vectors, RRF) → `answer`), scored by `eval.py`.
+Reports are written to `results/`. The held-out split is locked: it needs `--split heldout --final`.
+See `decision_log.md` for every design choice.
+
 ## What's next (Week 3 onward — not part of this deliverable)
 
 - **M2** (Weeks 3–4): baseline hybrid retrieval + `eval.py` scoring hit@k, faithfulness, and
